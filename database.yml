@@ -1,0 +1,61 @@
+#端口配置
+server:
+  port: 8082
+#jdbc配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.103.13.140:3306/demo?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root123
+  thymeleaf:
+    cache: false
+  redis:
+        #数据库索引
+        database: 0
+        host: 47.103.13.140
+        port: 6379
+        password: root123
+        jedis:
+          pool:
+            #最大连接数
+            max-active: 8
+            #最大阻塞等待时间(负数表示没限制)
+            max-wait: -1ms
+            #最大空闲
+            max-idle: 8
+            #最小空闲
+            min-idle: 0
+        #连接超时时间
+        timeout: 10000ms
+  cache:
+    redis:
+        use-key-prefix: true
+        key-prefix: dev
+        cache-null-values: false
+        time-to-live: 20s
+  application:
+    name: basedata
+#mybatis配置
+mybatis:
+#实体类所在包名
+  type-aliases-package: com.bosssoft.basedata_center.pojo.entity
+  # 指定全局配置文件位置
+  config-location: classpath:mybatis/mybatis-config.xml
+  # 指定sql映射文件位置
+  mapper-locations: classpath:mybatis/dao/*.xml
+#通用mapper配置
+mapper:
+#公用接口类路径
+  mappers: com.bosssoft.basedata_center.mappers.BaseMapper
+  identity: MYSQL
+logging:
+  file: c:/springboot.log
+pagehelper:
+  helper-dialect: mysql
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+#server:
+#  port: 8763
